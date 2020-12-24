@@ -19,7 +19,7 @@ async def get(id: int) -> Union[dict, None]:
         return summary[0]
     return None
 
+
 async def get_all() -> List:
     summaries = await TextSummary.all().values()
     return summaries
-

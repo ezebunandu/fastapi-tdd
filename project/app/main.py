@@ -1,7 +1,6 @@
 import logging
 
 from fastapi import FastAPI
-from tortoise.contrib.fastapi import register_tortoise
 
 from app.api import ping, summaries
 from app.db import init_db
@@ -16,7 +15,9 @@ def create_application() -> FastAPI:
 
     return application
 
+
 app = create_application()
+
 
 @app.on_event("startup")
 async def startup_event():
