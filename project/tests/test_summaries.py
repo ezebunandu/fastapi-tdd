@@ -2,11 +2,13 @@ import json
 
 import pytest
 
+
 def test_create_summary(test_app_with_db):
     response = test_app_with_db.post("/summaries/", data=json.dumps({"url": "https://foo.bar"}))
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert response.json()["url"] == "https://foo.bar"
+
 
 def test_create_summaries_invalid_json(test_app):
     response = test_app.post("/summaries/", data=json.dumps({}))
@@ -20,6 +22,7 @@ def test_create_summaries_invalid_json(test_app):
             }
         ]
     }
+
 
 def test_read_summary(test_app_with_db):
     response = test_app_with_db.post("/summaries/", data=json.dumps({"url": "https://foo.bar"}))
@@ -39,6 +42,7 @@ def test_read_summary_incorrect_id(test_app_with_db):
     response = test_app_with_db.get("/summaries/999/")
     assert response.status_code == 404
     assert response.json()["detail"] == "Summary not found"
+
 
 def test_read_all_summaries(test_app_with_db):
     response = test_app_with_db.post("/summaries/", data=json.dumps({"url": "https://foo.bar"}))
