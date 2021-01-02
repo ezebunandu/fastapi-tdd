@@ -134,8 +134,8 @@ def test_update_summary_incorrect_id(test_app_with_db):
     assert response.json()["detail"] == "Summary not found"
 
     response = test_app_with_db.put(
-        f"/summaries/0/",
-        data=json.dumps({"url": "https://foo.bar", "summary": "updated"})
+        "/summaries/0/",
+        data=json.dumps({"url": "https://foo.bar", "summary": "updated"}),
     )
     assert response.status_code == 422
     assert response.json() == {
@@ -196,8 +196,7 @@ def test_update_summary_invalid_keys(test_app_with_db):
 
     response = test_app_with_db.put(
         f"/summaries/{summary_id}/",
-        data=json.dumps({"url": "invalid://url", "summary": "updated"})
+        data=json.dumps({"url": "invalid://url", "summary": "updated"}),
     )
     assert response.status_code == 422
     assert response.json()["detail"][0]["msg"] == "URL scheme not permitted"
-
